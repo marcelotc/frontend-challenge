@@ -42,17 +42,11 @@ export default class Loja extends Component {
         <Link to={`/`} className="button"><FontAwesomeIcon icon={faHome} size="2x" /></Link>
         <div className="text-center">
           <h1>{lojaInfo.name}</h1>
-          <Image variant="top" onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={lojaInfo.image_blob} alt="imagem" thumbnail />
-          <br></br><br></br>
-          <h5>Categorias:</h5>
-          <br></br>
+          <Image onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={lojaInfo.image_blob} alt="Logo da loja" thumbnail />
+          <h5 className="categorias-detalhes">Categorias:</h5>
           {category.map(cat => <div className="categorias" key={cat}> {cat} </div>)}
-          <br></br><br></br>
-          <div className="nota">
-            <h5>Nota: {lojaInfo.rating}</h5>
-          </div>
-          <br></br>
-          <a href={lojaInfo.url} >
+          <h5 className="nota-detalhes">Nota: {lojaInfo.rating}</h5>
+          <a href={lojaInfo.url}>
             <Button variant="primary">Ir para o site da loja</Button>
           </a>
         </div>

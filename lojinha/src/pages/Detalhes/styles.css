@@ -25,7 +25,6 @@
   margin: 5px;
 }
 
-
 .corpo-detalhes{
   max-width: 700px;
   margin: 20px auto 0;
@@ -33,4 +32,12 @@
   background: #fff;
   border-radius: 5px;
   border: 1px solid #ddd;
+}
+
+.categorias-detalhes {
+  padding: 20px;
+}
+
+.nota-detalhes {
+  padding: 20px;
 }
