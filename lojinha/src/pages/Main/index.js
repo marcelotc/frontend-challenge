@@ -36,7 +36,7 @@ const Main = () => {
               <small className="text-muted">Pegue de volta: {Number(loja.takeback).toFixed(1)}</small>
             </Card.Text>
             <Card.Footer className="text-center">
-              <Link to={`/stores/${loja.id}`} >Detalhes</Link>
+              <Link to={`/stores/${loja.id}`} className="button"><span>Detalhes </span></Link>
             </Card.Footer>
           </Card>
         </div>
