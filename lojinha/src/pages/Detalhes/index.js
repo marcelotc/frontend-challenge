@@ -14,6 +14,8 @@ import ImagemQuebrada from '../../assets/imagem.jpg'
 export default class Loja extends Component {
   state = {
     loja: {},
+    lojaInfo: {},
+    category: []
   }
 
   async componentDidMount() {
@@ -21,27 +23,36 @@ export default class Loja extends Component {
 
     const response = await api.get(`/stores/${id}`);
 
-    this.setState({ loja: response.data });
+    const { category, ...lojaInfo } = response.data
+
+    this.setState({ loja: category, lojaInfo });
+
+    this.setState({
+      category,
+      lojaInfo,
+    });
 
   }
 
   render() {
-    const { loja } = this.state;
+    const { category, lojaInfo } = this.state;
 
     return (
       <div className="corpo-detalhes">
         <Link to={`/`} className="button"><FontAwesomeIcon icon={faHome} size="2x" /></Link>
         <div className="text-center">
-          <h1>{loja.name}</h1>
-          <Image variant="top" onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={loja.image_blob} alt="imagem" thumbnail />
+          <h1>{lojaInfo.name}</h1>
+          <Image variant="top" onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={lojaInfo.image_blob} alt="imagem" thumbnail />
           <br></br><br></br>
           <h5>Categorias:</h5>
-         
+          <br></br>
+          {category.map(cat => <div className="categorias" key={cat}> {cat} </div>)}
+          <br></br><br></br>
           <div className="nota">
-            <h5>Nota: {loja.rating}</h5>
+            <h5>Nota: {lojaInfo.rating}</h5>
           </div>
           <br></br>
-          <a href={loja.url} >
+          <a href={lojaInfo.url} >
             <Button variant="primary">Ir para o site da loja</Button>
           </a>
         </div>

@@ -16,6 +16,16 @@
   color: white;
 }
 
+.categorias {
+  background: white;
+  color: black;
+  display: inline;
+  border: 1px solid black;
+  padding: 1px 1px;
+  margin: 5px;
+}
+
+
 .corpo-detalhes{
   max-width: 700px;
   margin: 20px auto 0;
