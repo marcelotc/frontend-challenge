@@ -1,68 +1,163 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Para instalar as dependencias, digite: 
 
-## Available Scripts
+### `yarn install`
 
-In the project directory, you can run:
+Para rodar o projeto, digite:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Organização das pastas 
 
-### `yarn test`
+Para esse projeto decidi dividir em 4 pastas 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+src
+├── assets
+├── components
+├── pages
+├── services
 
-### `yarn build`
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`assets` , `components`, `pages`, `services`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Em compoennts vai os componentes da página que são compartilhados para todo o
+prójeto nesse caso o Header da página.
 
-### `yarn eject`
+Para facilitar na parte de roteamento criei um componente de rotas e em pages decidi dividir em mais duas pastas `main` e `detalhes`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+pages
+├── Detalhes
+│    └── index.js
+│    └── styles.js
+├── Main
+.    └── index.js
+.    └── styles.js
+.
+.
+.
+routes.js
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Podemos verificar abaixo como as rotas são chamadas pelo import. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```js
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-## Learn More
+import Main from '../src/pages/Main';
+import Detalhe from '../src/pages/Detalhes';
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+const Routes = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={Main}></Route>
+      <Route path="/stores/:id" component={Detalhe}></Route>
+    </Switch>
+  </BrowserRouter>
+);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default Routes;
 
-### Code Splitting
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+E no App.js chamamos o componente de rotas.
 
-### Analyzing the Bundle Size
+```js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+import React from 'react';
+import Routes from './routes';
 
-### Making a Progressive Web App
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+import Header from './components/Header';
 
-### Advanced Configuration
+const App = () => (
+  <div className="App">
+    <Header></Header>
+    <Routes></Routes>
+  </div>
+)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+export default App;
 
-### Deployment
+```
+Isso nos dará uma maior organização quando quisermos adicionar novas páginas.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `yarn build` fails to minify
+## Chamadas de API
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Para me ajudar a trabalhar com requisições HTTP utilizei o axios e crie uma URL
+base para ser usada em outros arquivos.
+
+```js
+
+import axios from 'axios';
+
+const api = axios.create({ baseURL: 'http://challenge.getmore.com.br'});
+
+export default api;
+
+```
+
+## Trabalhando com hooks e ciclos de vida
+
+Utilizei os react hooks `useEffect` e `useState` na página main e os ciclos de vida 
+`componentDidMount` 
+
+Abaixo como eu "peguei" as informações que vêm da API com os `useEffect`.
+
+```js
+
+//Página main
+
+const [lojas, setLojas] = useState([]);
+
+  useEffect(() => {
+    getLojas();
+  }, []);
+
+  const getLojas = async () => {
+    const response = await api.get('/stores');
+
+    const lojas = response.data;
+
+    setLojas(lojas);
+  }
+
+```
+
+Na página de detalhes resolvi usar o `componentDidMount`  para ter acesso
+aos parâmetros da url, pegando o ID da loja e assim fazendo a filtragem.
+
+```js
+
+//Página Detalhes
+
+async componentDidMount() {
+    const { id } = this.props.match.params;
+
+    const response = await api.get(`/stores/${id}`);
+
+    const { category, ...lojaInfo } = response.data
+
+    this.setState({ loja: category, lojaInfo });
+
+    this.setState({
+      category,
+      lojaInfo,
+    });
+
+  }
+
+  ```
+
+
+  ## Estilização
+
+  Para a estilização utilizei o react [React Bootstrap](https://react-bootstrap.github.io/)
