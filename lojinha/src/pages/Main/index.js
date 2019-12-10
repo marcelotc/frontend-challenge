@@ -4,6 +4,8 @@ import api from '../../services/api';
 import './styles.css';
 import { Container, Card } from 'react-bootstrap';
 
+import ImagemQuebrada from '../../assets/imagem.jpg'
+
 const Main = () => {
 
   const [lojas, setLojas] = useState([]);
@@ -26,7 +28,7 @@ const Main = () => {
       <div className="d-inline-flex p-4" key={loja.id}>
         <Card style={{ width: '14rem' }}>
           <Card.Header className="text-center">{loja.name}</Card.Header>
-          <img height="80px" src={loja.image_blob} alt="imagem" />
+          <img onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={loja.image_blob} alt="imagem" />
           <Card.Body className="text-center">
           </Card.Body>
           <Card.Text className="text-center">
