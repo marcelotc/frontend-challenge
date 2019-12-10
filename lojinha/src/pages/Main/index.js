@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 import { Container, Card } from 'react-bootstrap';
@@ -24,20 +25,23 @@ const Main = () => {
 
   return (
     <Container>
-    {lojas.map(loja =>
-      <div className="d-inline-flex p-4" key={loja.id}>
-        <Card style={{ width: '14rem' }}>
-          <Card.Header className="text-center">{loja.name}</Card.Header>
-          <img onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={loja.image_blob} alt="imagem" />
-          <Card.Body className="text-center">
-          </Card.Body>
-          <Card.Text className="text-center">
-            <small className="text-muted">Pegue de volta: {Number(loja.takeback).toFixed(1)}</small>
-          </Card.Text>
-        </Card>
-      </div>
-    )}
-  </Container>
+      {lojas.map(loja =>
+        <div className="d-inline-flex p-4" key={loja.id}>
+          <Card style={{ width: '14rem' }}>
+            <Card.Header className="text-center">{loja.name}</Card.Header>
+            <img onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={loja.image_blob} alt="imagem" />
+            <Card.Body className="text-center">
+            </Card.Body>
+            <Card.Text className="text-center">
+              <small className="text-muted">Pegue de volta: {Number(loja.takeback).toFixed(1)}</small>
+            </Card.Text>
+            <Card.Footer className="text-center">
+              <Link to={`/stores/${loja.id}`} >Detalhes</Link>
+            </Card.Footer>
+          </Card>
+        </div>
+      )}
+    </Container>
   )
 }
 
