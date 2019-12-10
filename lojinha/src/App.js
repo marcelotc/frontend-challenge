@@ -1,11 +1,14 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Teste</h1>
-    </div>
-  );
-}
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
+
+import Header from './components/Header';
+
+const App = () => (
+  <div className="App">
+    <Header></Header>
+  </div>
+)
 
 export default App;
