@@ -23,7 +23,7 @@ src
 `assets` , `components`, `pages`, `services`
 
 
-Em compoennts vai os componentes da página que são compartilhados para todo o
+Em components vai os componentes da página que são compartilhados para todo o
 prójeto nesse caso o Header da página.
 
 Para facilitar na parte de roteamento criei um componente de rotas e em pages decidi dividir em mais duas pastas `main` e `detalhes`.
@@ -108,9 +108,9 @@ export default api;
 ## Trabalhando com hooks e ciclos de vida
 
 Utilizei os react hooks `useEffect` e `useState` na página main e os ciclos de vida 
-`componentDidMount` 
+`componentDidMount` na página detalhes.
 
-Abaixo como eu "peguei" as informações que vêm da API com os `useEffect`.
+Abaixo como eu "peguei" as informações que vêm da API com o `useEffect`.
 
 ```js
 
