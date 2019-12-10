@@ -160,4 +160,4 @@ async componentDidMount() {
 
   ## Estilização
 
-  Para a estilização utilizei o react [React Bootstrap](https://react-bootstrap.github.io/)
+  Para a estilização utilizei o [React Bootstrap](https://react-bootstrap.github.io/)
