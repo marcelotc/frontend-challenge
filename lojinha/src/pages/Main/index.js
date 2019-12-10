@@ -26,7 +26,7 @@ const Main = () => {
   return (
     <Container>
       {lojas.map(loja =>
-        <div className="d-inline-flex p-4" key={loja.id}>
+        <div className="d-inline-flex p-4 col-lg-4 col-md-4 col-sm-6" key={loja.id}>
           <Card style={{ width: '14rem' }}>
             <Card.Header className="text-center">{loja.name}</Card.Header>
             <Image onError={(e) => e.target.src = ImagemQuebrada} height="80px" src={loja.image_blob} alt="Logo da loja" thumbnail/>
