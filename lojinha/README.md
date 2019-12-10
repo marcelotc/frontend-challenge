@@ -23,7 +23,7 @@ src
 `assets` , `components`, `pages`, `services`
 
 
-Em components vai os componentes da página que são compartilhados para todo o
+Em compoents vai os componentes da página que são compartilhados para todo o
 prójeto nesse caso o Header da página.
 
 Para facilitar na parte de roteamento criei um componente de rotas e em pages decidi dividir em mais duas pastas `main` e `detalhes`.
